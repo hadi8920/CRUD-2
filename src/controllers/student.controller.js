@@ -11,7 +11,7 @@ async function giveStudent(req, res){
             })
         }
         
-        const foundData = await studentModel.findOne({$or:[{rollno : rollno , email : email}]})
+        const foundData = await studentModel.findOne({$or:[{rollno : rollno} ,{ email : email}]})
         if(foundData){
             return res.status(409).json({
                 error: "Roll number or email should be unique"
@@ -45,7 +45,18 @@ async function giveStudent(req, res){
 
 async function getAllStudents(req, res){
     try {
-        const studentData = await studentModel.find()
+        const name = req.query.name
+        const sort = req.query.sort
+        const order = req.query.order
+        const sortObj = {}
+        const filter = {}
+        if(sort){
+            sortObj[sort] = order === 'desc' ? -1 : 1
+        }
+        if(name){
+            filter.name = name
+        }
+        const studentData = await studentModel.find(filter).sort(sortObj)
         if(!studentData){
             return res.status(400).json({
                 error : "Something went wrong"
