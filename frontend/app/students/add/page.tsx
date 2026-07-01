@@ -3,6 +3,7 @@ import { giveStudent } from '@/lib/students/student'
 import { useRouter } from 'next/navigation'
 import { useState , useEffect } from 'react'
 import React from 'react'
+import Loading from '../loading'
 
 const AddStudent = () => {
     const router = useRouter()
@@ -34,14 +35,15 @@ const AddStudent = () => {
       const token = localStorage.getItem("token")
       if(!token){
         router.replace('/login')
+        return
       }
-    })
+    } , [router])
     const toDashboard = () => {
     router.push("/dashboard")
   }
   return (
     <div>
-      
+      <button onClick={toDashboard} className='text-3xl'>Dashboard</button>
       <h1>Enter Student Data</h1>
       <form onSubmit={handleSubmit}>
         <input
@@ -65,10 +67,10 @@ const AddStudent = () => {
         value={email}
         onChange={(e) =>setEmail(e.target.value)}
           />
-          <button type="submit">Enter</button>
+          <button disabled={loader} type="submit">Enter</button>
       </form>
       {error && <p className="text-red-400 text-sm mt-4">{error}</p>}
-                 {loader && <p>Loading...</p>}
+                 {loader && <Loading/>}
     </div>
   )
 }

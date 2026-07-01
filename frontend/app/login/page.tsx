@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import React from 'react'
+import Loading from './loading'
 
 const Login = () => {
     const router = useRouter()
@@ -16,7 +17,7 @@ const Login = () => {
       try {
         e.preventDefault()
         setError("")
-        setLoader(false)
+        setLoader(true)
         const res = await loginUser(cnic , password)
         if(res.data){
             
@@ -36,7 +37,7 @@ const Login = () => {
   return (
 
     <div>
-      <button onClick={toDashboard} className='text-3xl'>Dshboard</button>
+      <button onClick={toDashboard} className='text-3xl'>Dashboard</button>
         <h1>Login</h1>
         <div>
             <form onSubmit={handleSubmit} className='flex flex-col gap-2'>
@@ -54,9 +55,9 @@ const Login = () => {
                 value={password}
                 onChange={(e)=>{setPassword(e.target.value)}}
                 />
-                <button type='submit'>Login</button>
+                <button disabled={loader} type='submit'>Login</button>
                 {error && <p className="text-red-400 text-sm mt-4">{error}</p>}
-                {loader && <p>Loading...</p>}
+                {loader && <Loading/>}
                 <p>Dont have an account?</p>
                 <Link href='/register'>Register</Link>
             </form>

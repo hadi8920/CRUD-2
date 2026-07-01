@@ -43,9 +43,7 @@ async function getAllStudents(req, res) {
     }
     const studentData = await studentModel.find(filter).sort(sortObj);
     if (!studentData) {
-      return res.status(400).json({
-        error: "Something went wrong",
-      });
+      throw new Error("Something went wrong")
     }
     res.status(200).json({
       message: "Data fetched successfully",

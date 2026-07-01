@@ -32,14 +32,16 @@ export async function getStudents(){
                 Authorization  : `Bearer ${token}`
             }
         })
+        console.log('-------------')
         const data = await res.json()
+        console.log("data:",data)
         if(!res.ok){
             throw new Error(data.message)
         }
         return data
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error : any) {
-        throw error
+        throw error;
     }
 }
 

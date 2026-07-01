@@ -4,6 +4,7 @@ import { useParams } from 'next/navigation'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import React from 'react'
+import Loading from '../../loading'
 
 const UpdateBook = () => {
   const router = useRouter()
@@ -52,9 +53,9 @@ const UpdateBook = () => {
     router.push("/dashboard")
   }
 
+
   return (
     <div>
-          <button onClick={toDashboard} className='text-3xl'>Dshboard</button>
 
       <button onClick={toDashboard} className='text-3xl'>Dshboard</button>
       <h1>Update your Student</h1>
@@ -81,8 +82,8 @@ const UpdateBook = () => {
         onChange={(e) => {setEmail(e.target.value)}}
         />
         {error && <p className="text-red-400 text-sm mt-4">{error}</p>}
-                 {loader && <p>Loading...</p>}
-        <button type='submit'>Update Student Button</button>
+                 {loader && <Loading/>}
+        <button disabled={loader} type='submit'>Update Student Button</button>
 
       </form>
     </div>

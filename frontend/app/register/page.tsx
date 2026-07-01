@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import Link from 'next/link'
 import React from 'react'
+import Loading from '../students/loading'
 
 const Register = () => {
     const router = useRouter()
@@ -64,8 +65,8 @@ const Register = () => {
          onChange={(e)=>{setPassword(e.target.value)}}
         />
         {error && <p className="text-red-400 text-sm mt-4">{error}</p>}
-                 {loader && <p>Loading...</p>}
-        <button type='submit'>Register</button>
+                 {loader && <Loading/>}
+        <button disabled={loader} type='submit'>Register</button>
         <p>Already have an account?</p>
         <Link href="/login">Login</Link>
       </form>
